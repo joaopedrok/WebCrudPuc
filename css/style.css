@@ -1,26 +1,31 @@
-.data-table{
-    margin: 10px;
-    width: 100%;
-    background: whitesmoke;
+BODY {
+    font-family: 'Merriweather', serif;
+    font-size: 0.8rem;
 }
 
-.row{
-    margin: 0px;
-    padding: 5px;
-    background: grey;
-}
-
-.button{
-    
-}
-
+/* GRID */
 /* MOBILE FIRST */
 /* For mobile phones: */
+.row{
+    margin: 0;
+    padding: 0;
+}
+
+.row:before,
+.row:after {
+  display: table;
+  content: " ";
+}
+
+.row:after {
+  clear: both;
+}
+
 [class*="col-"] {
     width: 100%;
-float: left;
-
+    float: left;
 }
+
 @media only screen and (min-width: 600px) {
     /* For tablets: */
     .col-xs-1 {width: 8.33%;}
@@ -50,4 +55,44 @@ float: left;
     .col-10 {width: 83.33%;}
     .col-11 {width: 91.66%;}
     .col-12 {width: 100%;}
+}
+
+/* ELEMENTS */
+/* STRUCTURE */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.data-table {
+    margin: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.data-table .odd {
+    background: #f1f1f1;
+}
+
+.data-table .row {
+    padding: 5px;
+}
+
+/* UTILITIES */
+.button {
+    display: inline-block;
+    background: #e8e8e8;
+    color: #3d3d3d;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+}
+
+.button:hover {
+    background: #ccc;
+}
+
+/* LAYOUT */
+.text-right {
+    text-align: right;
 }
