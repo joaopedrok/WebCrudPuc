@@ -1,12 +1,12 @@
-$(function(){
+$(function() {
 	//Executa quando clicar em botao de editar usuario
-	$('.btn-create').on('click', function(e){
+	$('.btn-create').on('click', function(e) {
 		e.preventDefault();
 		alert('criar');
 	});
 
 	//Executa quando clicar em botao de editar usuario
-	$('.btn-edit').on('click', function(e){
+	$('.btn-edit').on('click', function(e) {
 		e.preventDefault();
 
 		var $row = $(this).parent().parent();
@@ -14,10 +14,23 @@ $(function(){
 	});
 
 	//Executa quando clicar em botao de remover usuario
-	$('.btn-remove').on('click', function(e){
+	$('.btn-remove').on('click', function(e) {
 		e.preventDefault();
 
 		var $row = $(this).parent().parent();
 		alert('Remover usuario de ID ' + $row.data('userid'));
 	});
+});
+
+var template = '{{#results}} +<h1>{{ user.name.first }}</h1>{{/results}}';
+
+$.ajax({
+	url: 'https://randomuser.me/api/',
+	dataType: 'json',
+	// data: '', // to send to 
+	success: function(data) {
+		//console.dir(data);
+		var rendered = Mustache.render(template, data);
+		$('#target').html(rendered);
+	}
 });
