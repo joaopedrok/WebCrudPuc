@@ -22,15 +22,43 @@ $(function() {
 	});
 });
 
-var template = '{{#results}} +<h1>{{ user.name.first }}</h1>{{/results}}';
+var isParentOdd = function(){
+	return $(".row").length % 2 == 0 ? '' : ' odd';
+}
 
-$.ajax({
+var templateUsers = function() {
+	var template = 
+	'{{#results}}' +
+	'<div class="row' + isParentOdd() + '" data-userid="{{ registered }}">' +
+		'<div class="col-xs-8">' +
+			'<span>{{ user.name.first }} {{ user.name.last }}</span>' +
+		'</div>' +
+		'<div class="col-xs-4 text-right">' +
+			'<a href="#" class="button btn-edit" title="Editar"><i class="fa fa-pencil-square-o"></i> Editar</a>' +
+        	'<a href="#" class="button btn-remove" title="Remover"><i class="fa fa-times"></i> Excluir</a>' +
+		'</div>' +
+	'</div>' +
+	'{{/results}}';
+	return template;
+}
+
+for (var i = 0; i < 5; i++) {
+	$.ajax({
 	url: 'https://randomuser.me/api/',
 	dataType: 'json',
 	// data: '', // to send to 
 	success: function(data) {
 		//console.dir(data);
-		var rendered = Mustache.render(template, data);
-		$('#target').html(rendered);
+		console.log(isParentOdd());
+		/* global Mustache */
+		var rendered = Mustache.render(templateUsers(), data);
+		$('#users_list').append(rendered);
 	}
 });
+}
+
+// proper case string prptotype (JScript 5.5+)
+String.prototype.toProperCase = function() {
+  return this.toLowerCase().replace(/^(.)|\s(.)/g, 
+      function($1) { return $1.toUpperCase(); });
+};
