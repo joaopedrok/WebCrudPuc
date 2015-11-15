@@ -42,7 +42,11 @@ var templateUsers = function() {
 	return template;
 }
 
-for (var i = 0; i < 5; i++) {
+var qtUsers = function(){
+	return parseInt($('qtUsers').text().trim());
+}
+
+for (var i = 0; i < qtUsers; i++) {
 	$.ajax({
 	url: 'https://randomuser.me/api/',
 	dataType: 'json',
