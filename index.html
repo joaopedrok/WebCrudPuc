@@ -18,6 +18,7 @@
   <!--link href="//code.jquery.com/qunit/qunit-1.20.0.css" rel="stylesheet" type='text/css'-->
   <link href='css/normalize.css' rel='stylesheet' type='text/css'>
   <link href='css/style.css' rel='stylesheet' type='text/css'>
+  <link href='css/style-mobile.css' rel='stylesheet' type='text/css' media='(max-width: 600px)'>
   <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css'>
   
   <link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
@@ -37,20 +38,20 @@
   <div class="container">
     <h1>Web CRUD PUC - Listagem de Usuários</h1>
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-xs-12 col-md-6">
         <form id="form_create_users">
-          <div class="col-xs-2">
+          <div class="col-xs-3 col-md-2">
             <label for="users_qty">Quantidade: </label>
           </div>
-          <div class="col-xs-1">
+          <div class="col-xs-2 col-md-1">
             <input type="tel" name="users_qty" id="users_qty" value="1"/>
           </div>
-          <div class="col-xs-9">
+          <div class="col-xs-7 col-md-9">
             <a href="#" class="button btn-create"><i class="fa fa-user-plus"></i> Criar Novo Usuário</a>
           </div>
         </form>
       </div>
-      <div class="col-xs-6 text-right">
+      <div class="col-xs-12 col-md-6 text-right">
         <span id="users_count">0 usuário(s)</span>
       </div>
     </div>

@@ -65,6 +65,9 @@ function indexController(){
 	this.createUserFromAPI = function(usersQty) {
 		var self = this;
 
+		// Altera icone de botao para loading
+		$('.btn-create').find('i').removeClass('fa-user-plus').addClass('fa-spinner fa-pulse');
+
 		$.ajax({
 			url: 'http://api.randomuser.me/?results='+usersQty,
 			dataType: 'json',
@@ -72,6 +75,9 @@ function indexController(){
 				for(var i = 0; i < data.results.length; i++) {
 					self.setUser(data.results[i]);
 				}
+
+				// Retorna icone de users para botao
+				$('.btn-create').find('i').removeClass('fa-spinner fa-pulse').addClass('fa-user-plus');
 			}
 		});
 	};
@@ -90,10 +96,10 @@ function indexController(){
 	// Layout da linha da tabela
 	this.rowTemplate = function() {
 		return '<div class="row" data-userid="{{ user.registered }}">' +
-			'<div class="col-xs-8">' +
+			'<div class="col-xs-12 col-md-8">' +
 				'<img src="{{ user.picture.thumbnail }}" class="rounded-face"><span>{{ user.name.first }} {{ user.name.last }}</span>' +
 			'</div>' +
-			'<div class="col-xs-4 actions">' +
+			'<div class="col-xs-12 col-md-4 actions">' +
 				'<a href="#" class="button btn-edit" title="Editar"><i class="fa fa-pencil-square-o"></i> Editar</a>' +
 	        	'<a href="#" class="button btn-remove" title="Remover"><i class="fa fa-times"></i> Excluir</a>' +
 			'</div>' +
