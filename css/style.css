@@ -116,6 +116,10 @@ input[type=tel] {
     border-radius: 50%;
 }
 
+.form-wrapper .input-control{
+  padding: 4px 8px;
+}
+
 .overlay {
   position: absolute;
   background: rgba(0,0,0,0.5);
@@ -123,6 +127,10 @@ input[type=tel] {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+body.modal-open {
+    overflow: hidden;
 }
 
 .ui-modal {
@@ -142,12 +150,18 @@ input[type=tel] {
 }
 
 .ui-modal-content {
+  padding: 10px 10px 20px;
+}
+
+.ui-modal-footer {
   padding: 10px;
+  text-align: right;
 }
 
 .ui-btn-close {
+  font-size: 0.8rem;
   border: 1px solid #dddddd;
-  padding: 5px 8px;
+  padding: 2px 5px;
   float: right;
 }
 
@@ -156,6 +170,15 @@ input[type=tel] {
 }
 
 /* UTILITIES */
+hr {
+  margin-top: 8px;
+  height: 1px;
+  color: #ddd;
+  background: #ddd;
+  font-size: 0;
+  border: 0;
+}
+
 .button {
     display: inline-block;
     background: #e8e8e8;
@@ -170,7 +193,16 @@ input[type=tel] {
     background: #ccc;
 }
 
+.btn-lg {
+  font-size: 1.1rem;
+  padding: 8px 25px;
+}
+
 /* LAYOUT */
+.hide {
+  display: none !important;
+}
+
 .text-right {
     text-align: right;
 }

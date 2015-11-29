@@ -15,7 +15,6 @@
   </noscript>
 
   <!-- CSS Styles -->
-  <!--link href="//code.jquery.com/qunit/qunit-1.20.0.css" rel="stylesheet" type='text/css'-->
   <link href='css/normalize.css' rel='stylesheet' type='text/css'>
   <link href='css/style.css' rel='stylesheet' type='text/css'>
   <link href='css/style-mobile.css' rel='stylesheet' type='text/css' media='(max-width: 600px)'>
@@ -29,12 +28,6 @@
 </head>
 
 <body>
-  <!-- /* link para usarmos testes unitarios no app */
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
-  <script src="//code.jquery.com/qunit/qunit-1.20.0.js"></script>
-  <script src="tests.js"></script>
-  -->
   <div class="container">
     <h1>Web CRUD PUC - Listagem de Usuários</h1>
     <div class="row">
@@ -58,18 +51,107 @@
     <div class="data-table" id="users_list"></div>
   </div>
 
-  <div class="overlay"></div>
-  <div class="ui-modal">
+  <div class="overlay hide" id="overlay"></div>
+  <div class="ui-modal hide" id="ui_modal">
     <div class="ui-modal-title">
-      <span>Nome do usuario</span>
+      <span>Edição de dados</span>
       <a href="#" class="ui-btn-close">
         <i class="fa fa-close"></i>
       </a>
     </div>
     <div class="ui-modal-content">
-      <p>formulario de update</p>
+    </div>
+    <div class="ui-modal-footer">
+      <a href="#" class="button btn-submit btn-lg" id="btn_send_edit_form">Enviar</a>
     </div>
   </div>
+  
+  <div class="hide" id="template_edit_form">
+    <div class="form-wrapper">
+      <p>ID do usuário: <strong class="user-id">{{registered}}</strong></p>
+      <div class="row">
+        <div class="col-xs-12 col-md-2">
+          <div class="input-control">
+            <label for="name_title">Título</label>
+            <input type="text" name="name_title" id="name_title" value="{{name.title}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-5">
+          <div class="input-control">
+            <label for="name_first">Nome</label>
+            <input type="text" name="name_first" id="name_first" value="{{name.first}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-5">
+          <div class="input-control">
+            <label for="name_last">Sobrenome</label>
+            <input type="text" name="name_last" id="name_last" value="{{name.last}}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="input-control">
+            <label for="username">Nome de usuário</label>
+            <input type="text" name="username" id="username" value="{{username}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="input-control">
+            <label for="email">E-mail</label>
+            <input type="text" name="email" id="email" value="{{email}}">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <h4>Endereço</h4>
+      <div class="row">
+        <div class="col-xs-12 col-md-12">
+          <div class="input-control">
+            <label for="street">Rua</label>
+            <input type="text" name="street" id="street" value="{{location.street}}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-4">
+          <div class="input-control">
+            <label for="city">Cidade</label>
+            <input type="text" name="city" id="city" value="{{location.city}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <div class="input-control">
+            <label for="state">Estado</label>
+            <input type="text" name="state" id="state" value="{{location.state}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <div class="input-control">
+            <label for="zip">CEP</label>
+            <input type="text" name="zip" id="zip" value="{{location.zip}}">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <h4>Telefones</h4>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <div class="input-control">
+            <label for="phone">Telefone</label>
+            <input type="text" name="phone" id="phone" value="{{phone}}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <div class="input-control">
+            <label for="cell">Celular</label>
+            <input type="text" name="cell" id="cell" value="{{cell}}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <script type="text/javascript" src="js/tools.js" async></script>
 
 </body>
