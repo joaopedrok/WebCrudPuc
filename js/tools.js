@@ -1,39 +1,71 @@
+var appModule = (function () {
+ 
+  var users = [];
+ 
+  function changeButtonIcon(classToRemove, classToAdd) {
+    $('.btn-create').find('i').removeClass(classToRemove).addClass(classToAdd);
+  }
+
+  return {
+    init: function() {
+      // Executa quando clicar em botao de editar usuario
+      $('.btn-create').on('click', function(e) {
+          e.preventDefault();
+          var qty = parseInt($('#users_qty').val());
+          if (qty > 0 ) {
+              appModule.createUsersList(qty);
+          }
+      });
+
+      // Executa quando clicar em botao de editar usuario
+      $('.btn-edit').on('click', function(e) {
+          e.preventDefault();
+
+          var $row = $(this).parent().parent();
+          alert('Editar usuario de ID ' + $row.data('userid'));
+      });
+
+      // Executa quando clicar em botao de remover usuario
+      $('#users_list').on('click', '.btn-remove', function(e) {
+          e.preventDefault();
+          appModule.removeUser(this);
+      });
+
+      // Executa quando clica Enter dentro do input de qty de usuarios
+      $('#form_create_users').on('submit', function(e) {
+          e.preventDefault();
+          var qty = parseInt($('#users_qty').val());
+          if (qty > 0 ) {
+              appModule.createUsersList(qty);
+          }
+      });
+    },
+    
+	// Cria lista de usuarios nova
+	createUsersList: function(usersQty) {
+      var self = this;
+
+      // Altera icone de botao para loading
+      changeButtonIcon('fa-user-plus', 'fa-spinner fa-pulse');
+
+      $.ajax({
+          url: 'http://api.randomuser.me/?results='+usersQty,
+          dataType: 'json',
+          success: function(data) {
+              for(var i = 0; i < data.results.length; i++) {
+                  self.setUser(data.results[i]);
+              }
+
+              // Retorna icone de users para botao
+              changeButtonIcon('fa-spinner fa-pulse', 'fa-user-plus');
+          }
+      });
+	}
+  };
+})();
+
 $(function() {
-	// Cria objeto de controle da pagina
-	var indexCtrl = new indexController();
-
-	// Executa quando clicar em botao de editar usuario
-	$('.btn-create').on('click', function(e) {
-		e.preventDefault();
-		var qty = parseInt($('#users_qty').val());
-		if (qty > 0 ) {
-			indexCtrl.createUsersList(qty);
-		}
-	});
-
-	// Executa quando clicar em botao de editar usuario
-	$('.btn-edit').on('click', function(e) {
-		e.preventDefault();
-
-		var $row = $(this).parent().parent();
-		alert('Editar usuario de ID ' + $row.data('userid'));
-	});
-
-	// Executa quando clicar em botao de remover usuario
-	$('#users_list').on('click', '.btn-remove', function(e) {
-		e.preventDefault();
-		indexCtrl.removeUser(this);
-	});
-
-	// Executa quando clica Enter dentro do input de qty de usuarios
-	$('#form_create_users').on('submit', function(e) {
-		e.preventDefault();
-		var qty = parseInt($('#users_qty').val());
-		if (qty > 0 ) {
-			indexCtrl.createUsersList(qty);
-		}
-	});
-
+  appModule.init();
 });
 
 function indexController(){

@@ -9,3 +9,10 @@
     width: 100%;
     text-align: center;
 }
+
+.ui-modal {
+  top: 5%;
+  left: 0;
+  width: 100%;
+  margin-left: 0;
+}
