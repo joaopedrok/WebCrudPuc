@@ -1,5 +1,7 @@
 var appModule = (function () {
  
+  Parse.initialize("YWGi1Iq4KviRGFRuebfEnmAkoIhT7n2G64noD82Q", "FXNOnAFwGSXXhraDQzsejLPN2OlNlhwppEeya3mX");
+
   var users = [];
   
   // Layout da linha da tabela
@@ -15,27 +17,73 @@ var appModule = (function () {
       
   // Salva usuario no banco
   function setUser(userData) {
-    //TODO Salvar usuario no banco
-    users.push(userData.user);
+    var UserObject = Parse.Object.extend("users");
+    var userObject = new UserObject();
+
+    userObject.save( {
+                        name_title: userData.user.name.title, 
+                        name_first : userData.user.name.first,
+                        name_last : userData.user.name.last,
+                        username : userData.user.username,
+                        email : userData.user.email,
+                        street : userData.user.location.street,
+                        city : userData.user.location.city,
+                        state : userData.user.location.state,
+                        zip : String(userData.user.location.zip),
+                        phone : userData.user.phone,
+                        cell : userData.user.cell
+                     }, {
+      success: function(object) {
+
+        userData.user.id = object.id;
+        console.log(userData.user);
+        users.push(userData.user);
+      },
+      error: function(model, error) {
+        alert(error);
+        console.log(error);
+      }
+    });
   }
   
   // Remove usuario da lista
   function removeUser(element) {
-    //TODO Remove usuario no banco
+    
     var $row = $(element).parent().parent(),
-        userId = $row.data('userid');
+        userId = $row.data('userid');  
 
+    console.log(users.length);
+    
+    var objectId;
+    var index;
     for (var i = 0; users.length; i++) {
       if (users[i].registered === userId) {
-        users.splice(i, 1);
+        objectId = users[i].id;
+        index = i;
         break;
       }
     }
     
-    $row.addClass('removed-item');
-    
-    window.setTimeout(function(){ $row.remove(); }, 600);
-    updateUsersCount();
+    var UserObject = Parse.Object.extend("users");
+    var userObject = new UserObject();
+
+    userObject.set("objectId",objectId);
+
+    userObject.destroy({
+      success: function(object) {
+          console.log(object);
+          users.splice(index, 1);
+          $row.addClass('removed-item');
+          
+          window.setTimeout(function(){ $row.remove(); }, 600);
+          updateUsersCount();
+       },
+      error: function(object, error) {
+      alert(error);
+    }
+  });
+
+   
   }
   
   // Altera icone do botao
@@ -117,7 +165,32 @@ var appModule = (function () {
   
   // Atualiza dados do usuario no banco
   function updateUserDatabase(userData) {
-    //TODO Atualizar os dados do usuario no banco
+
+    console.log(userData);
+    var UserObject = Parse.Object.extend("users");
+    var userObject = new UserObject();
+
+    userObject.save( {
+                        objectId : userData.id,
+                        name_title: userData.name.title, 
+                        name_first : userData.name.first,
+                        name_last : userData.name.last,
+                        username : userData.username,
+                        email : userData.email,
+                        street : userData.location.street,
+                        city : userData.location.city,
+                        state : userData.location.state,
+                        zip : String(userData.location.zip),
+                        phone : userData.phone,
+                        cell : userData.cell
+                     }, {
+      success: function(object) {
+      },
+      error: function(model, error) {
+        alert(error);
+        console.log(error);
+      }
+    });
   }
   
   // Cria lista de usuarios nova
